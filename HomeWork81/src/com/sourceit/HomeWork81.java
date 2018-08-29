@@ -49,11 +49,30 @@ public class HomeWork81 {
 			System.out.println("while cycle -> " + it.next());
 		}
 
+		System.out.println("Array - " + Arrays.toString(mylist.toArray()));
+		System.out.println("MyList Size - " + mylist.size());
+		
+		ListIterable con1 = new DefaultMyList ();
+		con1 = (ListIterable) mylist;
+		ListIterator it1 = con1.listIterator();
+		
+		System.out.println("Array Has Prev - " + it1.hasPrevious());
+		
+		
+		
+		
 		it.remove();
 
 		System.out.println("Array - " + Arrays.toString(mylist.toArray()));
 		System.out.println("MyList Size - " + mylist.size());
 
+		
+		
+		
+		
+		
+		
+		
 		mylist.clear();
 		System.out.println("Cleared Array - " + Arrays.toString(mylist.toArray()));
 		System.out.println("MyList Size - " + mylist.size());
