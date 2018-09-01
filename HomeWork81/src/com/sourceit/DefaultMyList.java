@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DefaultMyList implements MyList {
+public class DefaultMyList implements MyList, ListIterable {
 	private int size = 0;
-	int i = 0;
+	private int i = 0;
 	private Object[] mylist = new Object[size];
 
 	public Iterator<Object> iterator() {
@@ -18,6 +18,7 @@ public class DefaultMyList implements MyList {
 		private boolean flag;
 		private boolean isHasNext;
 		private boolean isNext;
+
 		private boolean isRemoved;
 		int i = 0;
 
@@ -73,6 +74,71 @@ public class DefaultMyList implements MyList {
 			isNext = false;
 			i--;
 		}
+	}
+
+	private class ListIteratorImpl extends IteratorImpl implements ListIterator {
+		private boolean flag2;
+		private boolean isHasPrev;
+		private boolean isPrev;
+		private boolean isNext;
+		private boolean isSet;
+
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			System.out.println(flag2 + "  " + i);
+			if (!flag2) {
+
+				if (i > 0) {
+					System.out.println(i);
+					flag2 = true;
+					isHasPrev = true;
+				} else
+					isHasPrev = false;
+			}
+			return isHasPrev;
+		}
+
+		@Override
+		public Object previous() {
+			// TODO Auto-generated method stub
+
+			if (!flag2) {
+				isHasPrev = hasPrevious();
+
+			}
+			if (isHasPrev) {
+				flag2 = false;
+				isPrev = true;
+				isSet = false;
+				i--;
+				return mylist[i - 1];
+			} else {
+				throw new NoSuchElementException();
+			}
+		}
+
+		@Override
+		public void set(Object e) {
+			// TODO Auto-generated method stub
+
+			if (isSet) {
+				throw new IllegalStateException();
+			} else {
+				if (isPrev) {
+					mylist[i - 1] = e;
+					isPrev = false;
+					isSet = true;
+				}
+			}
+
+		}
+		// IMPLEMENT ALL METHODS HERE
+	}
+
+	@Override
+	public ListIterator listIterator() {
+		return new ListIteratorImpl();
 	}
 
 	@Override
@@ -140,5 +206,4 @@ public class DefaultMyList implements MyList {
 //		Arrays.deepEquals(tempList, mylist);
 		return Arrays.deepEquals(tempList, mylist);
 	}
-
 }
