@@ -42,6 +42,7 @@ public class MaxMatrixCallableDemo {
 		for (Future<Integer> maxRes : results)
 			try {
 				if (max < maxRes.get()) {
+					Thread.sleep(1);
 					max = maxRes.get();
 				}
 				System.out.println(maxRes.get() + " max - " + max);
